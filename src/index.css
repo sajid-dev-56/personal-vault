@@ -227,12 +227,14 @@ body {
 }
 
 .header {
-  height: 70px;
+  height: calc(70px + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 32px;
+  padding-left: 32px;
+  padding-right: 32px;
   background: rgba(10, 11, 13, 0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -401,13 +403,15 @@ body {
   }
 
   .main-container {
-    height: calc(100vh - 64px);
+    height: calc(100vh - 64px - env(safe-area-inset-bottom, 0px));
     padding-bottom: 0;
   }
 
   .header {
-    height: 56px;
-    padding: 0 16px;
+    height: calc(56px + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .header-title {
@@ -432,8 +436,10 @@ body {
 /* Small phones (≤480px) */
 @media (max-width: 480px) {
   .header {
-    height: 50px;
-    padding: 0 12px;
+    height: calc(50px + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .header-title {
