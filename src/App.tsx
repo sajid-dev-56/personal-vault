@@ -14,6 +14,7 @@ function AppContent() {
   const { user, loading, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [documents, setDocuments] = useState<DocumentMetadata[]>([]);
   const [selectedDoc, setSelectedDoc] = useState<DocumentMetadata | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -89,10 +90,22 @@ function AppContent() {
       {/* Sidebar Navigation */}
       <Sidebar 
         activeTab={activeTab} 
-        setActiveTab={setActiveTab}
+        setActiveTab={(tab) => {
+          setActiveTab(tab);
+          setIsMobileMenuOpen(false);
+        }}
         isCollapsed={isCollapsed} 
         setIsCollapsed={setIsCollapsed} 
+        isMobileMenuOpen={isMobileMenuOpen}
       />
+
+      {/* Mobile Sidebar Backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="sidebar-backdrop" 
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
 
       {/* Main App Window */}
       <div className="main-container">
@@ -100,9 +113,12 @@ function AppContent() {
         {/* Header */}
         <header className="header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            {/* Collapse toggle for desktop sidebar */}
+            {/* Collapse toggle for desktop sidebar / mobile menu toggle */}
             <button
-              onClick={() => setIsCollapsed(!isCollapsed)}
+              onClick={() => {
+                setIsCollapsed(!isCollapsed);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
               className="btn btn-ghost sidebar-toggle-btn"
               style={{ 
                 padding: '8px', 

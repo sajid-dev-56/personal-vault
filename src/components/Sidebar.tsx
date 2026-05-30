@@ -13,13 +13,15 @@ interface SidebarProps {
   setActiveTab: (tab: string) => void;
   isCollapsed: boolean;
   setIsCollapsed: (collapsed: boolean) => void;
+  isMobileMenuOpen?: boolean;
 }
 
 export default function Sidebar({ 
   activeTab, 
   setActiveTab, 
   isCollapsed, 
-  setIsCollapsed 
+  setIsCollapsed,
+  isMobileMenuOpen
 }: SidebarProps) {
   
   const navItems = [
@@ -33,7 +35,7 @@ export default function Sidebar({
     <>
       {/* Desktop Sidebar */}
       <aside 
-        className="glass-panel sidebar-desktop"
+        className={`glass-panel sidebar-desktop ${isMobileMenuOpen ? 'sidebar-mobile-open' : ''}`}
         style={{
           width: isCollapsed ? '80px' : '260px',
           height: 'calc(100vh - 24px)',
