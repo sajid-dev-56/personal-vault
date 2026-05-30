@@ -29,10 +29,11 @@ export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
 
 // Enable offline persistence for Firestore
-enableIndexedDbPersistence(db).catch((err) => {
-  if (err.code === 'failed-precondition') {
+enableIndexedDbPersistence(db).catch((err: unknown) => {
+  const error = err as { code?: string };
+  if (error.code === 'failed-precondition') {
     console.warn('Firestore persistence unavailable: multiple tabs open');
-  } else if (err.code === 'unimplemented') {
+  } else if (error.code === 'unimplemented') {
     console.warn('Firestore persistence unavailable: browser not supported');
   }
 });
